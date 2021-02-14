@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <title>vue sample</title>
+    </head>
+    <body>
+        <div id="app">
+            <button>parent component</button>
+            <my-component></my-component>
+            <my-local-component></my-local-component>
+        </div>
+
+        <div id="app2">
+            <button>app2</button>
+            <my-component></my-component>
+            <my-local-component></my-local-component>
+        </div>
+
+        <script src="https://unpkg.com/vue@2.4.4/dist/vue.js"></script>
+        <script>
+            //global
+            Vue.component('my-component', {
+                template: '<div>A custom components!</div>'
+            });
+
+            //local
+            var cmp = {
+                template: '<div>A custom local components!</div>'
+            }
+
+            new Vue({
+                el: '#app',
+                components: {
+                    'my-local-component': cmp
+                }
+            })
+            
+            new Vue({
+                el: '#app2'
+            })
+        </script>
+    </body>
+</html>

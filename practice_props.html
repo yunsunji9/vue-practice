@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <title>vue sample</title>
+    </head>
+    <body>
+        <div id="app">
+           <div>{{message}}</div>
+           <child-component v-bind:passed-data="message"></child-component>
+        </div>
+
+        <script src="https://unpkg.com/vue@2.4.4/dist/vue.js"></script>
+        <script>
+            Vue.component('child-component', {
+                props: ['passedData'],
+                template: '<p>{{passedData}}</p>'
+            });
+
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    message: 'tester'
+                }
+            });
+        </script>
+    </body>
+</html>
