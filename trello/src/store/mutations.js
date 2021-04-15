@@ -7,6 +7,10 @@ const mutations = {
   SET_BOARDS (state, boards) {
     state.boards = boards
   },
+  SET_THEME (state, color) {
+    state.headerColor = color ? 'rgba(0, 0, 0, .5)' : '#026aa7';
+    state.contentColor = color ? color : '#fff';
+  },
   SET_BOARD (state, board) {
     state.board = board
   },
@@ -23,6 +27,9 @@ const mutations = {
     state.token = null;
     delete localStorage.token;
     setAuthInHeader(null);
+  },
+  SET_IS_SHOW_BOARD_SETTINGS(state, toggle) {
+    state.isShowBoardSettings = toggle
   }
 };
 

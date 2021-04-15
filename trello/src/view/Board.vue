@@ -3,54 +3,93 @@
     <div class="board-wrapper">
       <div class="board">
         <div class="board-header">
-          <span class="board-title">{{board.title}}</span>
+          <input type="text" class="form-control" v-model="inputTitle" v-if="modifyToggle" 
+            ref="inputTitleForm" @blur="onToggleModifyBlur" @keyup.enter="onToggleModifyBlur"/>
+          <span class="board-title" v-else @click.prevent="onModifyToggle">{{inputTitle}}</span>
+          <a href="#" class="board-header-btn show-menu" @click.prevent="onShowSettings">... Show Menu</a>
         </div>
         <div class="list-section-wrapper">
           <div class="list-section">
             <div class="list-wrapper" v-for="list in board.lists" v-bind:key="list.pos">
               <List :data="list"></List>
             </div>
+            <div class="list-wrapper">
+              <AddList></AddList>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <BoardSetting v-if="isShowBoardSettings"></BoardSetting>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-  import {mapState, mapActions} from 'vuex';
+  import {mapState, mapActions, mapMutations} from 'vuex';
   import List from '../components/List';
+  import BoardSetting from '../components/BoardSetting';
+  import AddList from '../components/AddList';
 
   export default {
     data() {
       return {
         bid: 0,
-        loading: false
+        loading: false,
+        inputTitle: '',
+        modifyToggle: false
       }
     },
     components: {
-      List
+      List,
+      BoardSetting,
+      AddList
     },
     computed: {
       ...mapState({
-        board: 'board'
+        board: 'board',
+        isShowBoardSettings: 'isShowBoardSettings'
       })
     },
     created() {
-      this.fetchData();
+      this.fetchData()
+        .then(() => {
+          this.SET_THEME(this.board.bgColor)
+          this.inputTitle = this.board.title
+        })
+      this.SET_IS_SHOW_BOARD_SETTINGS(false)
     },
     methods: {
+      ...mapMutations([
+        'SET_THEME',
+        'SET_IS_SHOW_BOARD_SETTINGS'
+      ]),
       ...mapActions([
-        'FETCH_BOARD'
+        'FETCH_BOARD',
+        'UPDATE_BOARD'
       ]),
       fetchData() {
         this.loading = true;
         this.bid = this.$route.params.bid;
-        this.FETCH_BOARD({id: this.$route.params.bid})
+        return this.FETCH_BOARD({id: this.$route.params.bid})
           .then(() => {
             this.loading = false;
           })
+      },
+      onShowSettings() {
+        this.SET_IS_SHOW_BOARD_SETTINGS(true)
+      },
+      onModifyToggle() {
+        this.modifyToggle = true;
+        this.$nextTick(() => this.$refs.inputTitleForm.focus());
+      },
+      onToggleModifyBlur() {
+        this.modifyToggle = false;
+
+        this.inputTitle = this.inputTitle.trim()
+        if(!this.inputTitle) return 
+
+        this.UPDATE_BOARD({id: this.board.id, title: this.inputTitle})
       }
     }
   }
