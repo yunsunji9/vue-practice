@@ -2,7 +2,10 @@
   <div>
     <div class="list">
       <div class="list-header">
-        <div class="list-header-title">{{data.title}}</div>
+        <input type="text" class="form-control" v-if="titleToggle" v-model="inputTitle" ref="inputTitle"
+          @blur="onBlurTitle"/>
+        <div class="list-header-title" v-else @click.prevent="onToggleTitle">{{data.title}}</div>
+        <a href="#" class="btn-delete-list" @click="onDeleteList">&times;</a>
       </div>
       <div class="card-list">
         <CardItem v-for="card in data.cards" :data="card" :key="card"></CardItem>
@@ -20,6 +23,7 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex';
   import AddCard from './AddCard.vue';
   import CardItem from './CardItem.vue';
 
@@ -29,9 +33,38 @@
       CardItem
     },
     props: ['data'],
+    created(){
+      this.inputTitle = this.data.title
+    },
     data(){
       return {
-        isAddCard: false
+        isAddCard: false,
+        titleToggle: false,
+        inputTitle: ''
+      }
+    },
+    methods: {
+      ...mapActions([
+        'UPDATE_LIST',
+        'DELETE_LIST'
+      ]),
+      onToggleTitle() {
+        this.titleToggle = true;
+        this.$nextTick(() => this.$refs.inputTitle.focus())
+      },
+      onBlurTitle() {
+        this.titleToggle = false;
+        this.inputTitle = this.inputTitle.trim();
+
+        if(!this.inputTitle) return;
+        if(this.inputTitle == this.data.title) return;
+
+        const id = this.data.id;
+        const title = this.inputTitle;
+        this.UPDATE_LIST({id: id, title: title})
+      },
+      onDeleteList() {
+        this.DELETE_LIST({id: this.data.id})
       }
     }
   }

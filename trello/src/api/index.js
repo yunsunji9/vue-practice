@@ -42,6 +42,12 @@ export const board = {
   },
   create(title) {
     return request('post', '/boards', {title})
+  },
+  delete(id) {
+    return request('delete', `/boards/${id}`)
+  },
+  update(id, payload) {
+    return request('put', `/boards/${id}`, payload)
   }
 }
 
@@ -60,5 +66,20 @@ export const card = {
   },
   update(id, payload) {
     return request('put', `/cards/${id}`, payload)
+  },
+  delete(id) {
+    return request('delete', `/cards/${id}`)
+  }
+}
+
+export const testlist = {
+  create(payload){
+    return request('post', '/lists', payload)
+  },
+  update(id, payload) {
+    return request('put', `/lists/${id}`, payload)
+  },
+  delete(id) {
+    return request('delete', `/lists/${id}`)
   }
 }

@@ -32,7 +32,8 @@
       AddBoard
     },
     created() {
-      this.fetchData()
+      this.fetchData();
+      this.SET_THEME()
     },
     updated(){
       this.$refs.boardItem.forEach(el => {
@@ -47,7 +48,8 @@
     },
     methods: {
       ...mapMutations({
-        addBoard: 'SET_IS_ADD_BOARD'
+        addBoard: 'SET_IS_ADD_BOARD',
+        SET_THEME: 'SET_THEME'
       }),
       ...mapActions([
         'FETCH_BOARDS'

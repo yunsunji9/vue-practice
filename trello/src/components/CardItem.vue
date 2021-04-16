@@ -4,17 +4,28 @@
       <div>{{data.title}}</div>
       <div class="card-item-meta" v-if="data.description">&equiv;</div>
     </router-link>
+    <a href="#" class="delete-card-btn" @click.prevent="deleteCard">&times;</a>
   </div>
 </template>
 
 <script>
-  import { mapState } from 'vuex';
+  import { mapState, mapActions } from 'vuex';
   export default {
     props: ['data'],
     computed: {
       ...mapState({
         boardId: state => state.board.id
       })
+    },
+    methods: {
+      ...mapActions([
+        'DELETE_CARD'
+      ]),
+      deleteCard() {
+        if(!confirm('정말 삭제하시겠습니까?')) return;
+
+        this.DELETE_CARD({id: this.data.id});
+      }
     }
   }
 </script>
