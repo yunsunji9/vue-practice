@@ -1,0 +1,97 @@
+<template>
+  <div id="App">
+    <div style="height: 500px;border: 1px solid red">
+      <Header :isFixed="isHeaderFixed" :isUp="isUp"></Header>
+    </div>
+    <div style="height: 500px;border: 1px solid red">
+      <Search :isFixed="isSearchFixed" :isUp="isUp"></Search>
+    </div>
+    <div style="height: 1000px;border: 1px solid red">
+      <BestProduct></BestProduct>
+    </div>
+    {{fetchData}}
+  </div>
+</template>
+
+<script>
+import Header from './components/common/Header.vue'
+import Search from './components/common/Search.vue'
+import BestProduct from './components/main/BestProduct.vue'
+import { main } from '@/api/main.js';
+
+export default {
+  name: 'App',
+  data(){
+    return {
+      isUp: false,
+      isHeaderFixed: false,
+      isSearchFixed: false,
+      lastScroll: 0,
+      scrollTop: 0,
+      headerPosi: 0,
+      searchPosi: 0,
+      searchPosi2: 453,
+      searchPosi3: 503,
+      fetchData: '',
+      quickMenu: ''
+    }
+  },
+  components: {
+    Header,
+    Search,
+    BestProduct
+  },
+  created(){
+    window.addEventListener('scroll', this.onScroll)
+    this.fetchData = main.fetch().then(res => console.log(res.data.bannerList));
+    //console.log(this.fetchData)
+
+    this.quickMenu = main.quick().then(res => console.log(res.data.bannerList));
+    console.log(this.quickMenu)
+  },
+  mounted() {
+    this.headerPosi = document.querySelector('.header').offsetTop;
+    this.searchPosi = document.querySelector('.search').offsetTop;
+  },
+  methods: {
+    getScrollOffsetY(){
+      return window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+    },
+    onScroll() {
+      //스크롤 계산
+      this.scrollTop = this.getScrollOffsetY();
+
+      if (this.scrollTop >= this.headerPosi) {
+        this.isHeaderFixed = true
+      } else {
+        this.isHeaderFixed = false
+      }
+
+      if (this.scrollTop >= this.searchPosi) {
+        this.isSearchFixed = true
+      } else {
+        this.isSearchFixed = false
+      }
+
+      if (this.lastScroll > this.scrollTop) {
+        this.isUp = true;
+        this.searchPosi = this.searchPosi2;
+      } else {
+        this.isUp = false;
+        this.searchPosi = this.searchPosi3;
+      }
+      this.lastScroll = this.scrollTop;
+    }
+  }
+}
+</script>
+
+<style>
+.App {
+  padding: 0;
+  margin: 0;
+}
+body{
+  margin: 0;
+}
+</style>
