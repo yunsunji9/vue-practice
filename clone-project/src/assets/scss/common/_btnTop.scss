@@ -1,0 +1,26 @@
+.btn-top {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  z-index: 200;
+  width: 40px;
+  height: 40px;
+  background: $white;
+  border: 1px solid #e7e4f1;
+  opacity: 0;
+  transition: opacity .3s;
+  border-radius: 50%;
+
+  &:after {
+    @include centerAlign;
+    @include sp-comm(-50px, -352px);
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 14px;
+  }
+
+  &.on {
+    opacity: 1;
+  }
+}

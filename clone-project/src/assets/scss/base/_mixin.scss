@@ -1,0 +1,65 @@
+@mixin clearfix {
+  &:after {
+    display: block;
+    clear: both;
+    content: "";
+  }
+}
+
+@mixin elipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin lineClamp($val) {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $val;
+}
+
+@mixin placeholderColor($color) {
+  &::-webkit-input-placeholder {
+    color: $color;
+  }
+  &:-ms-input-placeholder {
+    color: $color;
+  }
+}
+
+@mixin fontStyle($fontSize, $lineHeight: 1.5, $color: #333) {
+  font-size: $fontSize;
+  line-height: $lineHeight;
+  color: $color;
+}
+
+@mixin centerAlign($val:"both") {
+  @if($val == "vertical") {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  @if($val == "horizontal") {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  @if($val == "both") {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@mixin emptyImg {
+  background: #f4f4f4 url(#{$imagePath}img_default.png) no-repeat 50% 50%;
+  background-size: contain;
+}
+
+@mixin sp-comm($horizon, $vertical) {
+  background: url(#{$imagePath}sp_comm.png) no-repeat $horizon $vertical;
+  background-size: 150px auto;
+}

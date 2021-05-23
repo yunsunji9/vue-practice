@@ -1,0 +1,41 @@
+.event-list-area {
+  height: 44px;
+  margin: 18px 15px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, .1);
+  text-align: center;
+
+  ul {
+    display: flex;
+    height: 100%;
+  }
+
+  li {
+    position: relative;
+    flex: 1;
+    height: 100%;
+
+    &:after {
+      @include centerAlign("vertical");
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 1px;
+      height: 12px;
+      background: #f4f4f4;
+    }
+
+    &:first-child:after {
+      display: none;
+    }
+
+    a {
+      display: block;
+      height: 100%;
+      font-size: 12px;
+      line-height: 44px;
+      color: #666;
+    }
+  }
+}

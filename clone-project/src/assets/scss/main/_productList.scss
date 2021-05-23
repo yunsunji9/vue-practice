@@ -1,0 +1,321 @@
+.product-title {
+  @include fontStyle(20px, 22px, $black);
+  position: relative;
+  padding: 38px 0 5px;
+
+  .btn-more {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    font-size: 11px;
+    color: #999;
+    text-decoration: underline;
+  }
+}
+
+.product-list-area {
+  margin: 0 15px;
+
+  .item {
+    overflow: hidden;
+    margin-top: 12px;
+    border-radius: 8px;
+    background: $white;
+    box-shadow: 2px 10px 10px rgba(0, 0, 0, .1);
+  }
+
+  .item-img {
+    @include emptyImg;
+    position: relative;
+    height: 0;
+    padding-top: 58.26087%;
+    margin-bottom: -8px;
+
+    > img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .slider-area {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .swiper-container {
+      height: 100%;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+
+  .item-info {
+    position: relative;
+    z-index: 10;
+    background: $white;
+    padding: 14px 16px 16px;
+
+    .category {
+      position: absolute;
+      right: 16px;
+      bottom: 20px;
+      font-size: 11px;
+      font-weight: $normalWeight;
+      color: $gray;
+    }
+
+    .flag-bx {
+      .flag {
+        @include fontStyle(10px, 16px, $white);
+        display: inline-block;
+        min-width: 42px;
+        height: 16px;
+        margin-left: 2px;
+        padding: 0 5px;
+        border-radius: 2px;
+        background: #ef657f;
+        text-align: center;
+
+        &:first-child {
+          margin-left: 0;
+        }
+      }
+
+      .directUseFlag {
+        background: #9ba2ed;
+      }
+    }
+
+    .sub-text-bx {
+      @include elipsis;
+      @include fontStyle(12px, 16px, #666);
+      margin-top: 6px;
+    }
+
+    .title-bx {
+      @include fontStyle(14px, 18px, $black);
+      margin-top: 5px;
+      font-weight: $normalWeight;
+    }
+
+    .category-bx {
+      @include fontStyle(11px, 11px, #999);
+      position: absolute;
+      right: 16px;
+      bottom: 20px;
+      font-weight: $normalWeight;
+    }
+
+    .info-bx {
+      position: relative;
+      font-size: 11px;
+      color: #999;
+
+      > span {
+        display: inline-block;
+        position: relative;
+        padding: 0 5px;
+        vetical-align: top;
+        margin-left: 4px;
+
+        &:first-child {
+          margin-left: 0;
+          &:after {
+            display: none;
+          }
+        }
+
+        &:after {
+          @include centerAlign("vertical");
+          content: "";
+          postiion: absolute;
+          left: -4px;
+          width: 1px;
+          height: 10px;
+          background: #ededed;
+        }
+      }
+
+      .departure-date {
+        padding-left: 0;
+      }
+
+      .location {
+        padding-left: 10px;
+
+        &:before {
+          @include sp-comm(-35px, -348px);
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 2px;
+          width: 8px;
+          height: 9px;
+        }
+      }
+
+      .hotel-grage {
+        padding-left: 10px;
+
+        &:before {
+          @include sp-comm(-26px, -348px);
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 2px;
+          width: 8px;
+          height: 8px;
+        }
+      }
+
+      .hotel-grade {
+        .grade {
+          color: #666;
+        }
+      }
+    }
+
+    .price-bx {
+      margin-top: 10px;
+
+      .cate {
+        @include fontStyle(12px, 14px, #999);
+      }
+
+      .num {
+        @include fontStyle(20px, 22px, $black);
+        font-weight: $extraBoldWeight;
+        display: inline-block;
+        vertical-align: top;
+        letter-spacing: -1px;
+      }
+
+      .unit {
+        @include fontStyle(12px, 22px, $black);
+        display: inline-block;
+        vertical-align: top;
+        margin: 1px 0 0 2px;
+        font-weight: $normalWeight;
+      }
+    }
+  }
+}
+
+// slide-type
+.product-list.slide-type {
+  overflow: auto;
+  font-size: 0;
+  white-space: nowrap;
+
+  -webkit-overflow-scrolling: touch;
+  -ms-scroll-snap-type: x mandatory;
+  scroll-snap-type: x mandatory;
+  -webkit-scroll-snap-type: x mandatory;
+  -webkit-scroll-padding-left: 15px;
+  scroll-padding-left: 15px;
+
+  li {
+    display: inline-block;
+    width: 44.445%;
+    margin: 10px 12px 10px 0;
+    letter-spacing: 0;
+    vertical-align: top;
+    scroll-snap-align: start;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, .1);
+  }
+
+  a {
+    display: block;
+    padding: 14px 14px 0;
+  }
+
+  .flag-bx {
+    height: 16px;
+  }
+
+  .title-bx {
+    margin-top: 6px;
+  }
+
+  .item-img {
+    overflow: hidden;
+    border-radius: 50%;
+    margin-bottom: 0;
+    padding-top: 100%;
+  }
+
+  .sub-text-bx {
+    display: none;
+  }
+
+  .title-bx {
+    @include lineClamp(2);
+    white-space: normal;
+  }
+
+  .item-info {
+    position: relative;
+    height: 140px;
+    padding: 14px 0 0;
+  }
+
+  .info-bx {
+    position: relative;
+    font-size: 11px;
+    color: #999;
+
+    .hotel-grage {
+      display: none;
+    }
+  }
+
+  .price-bx {
+    position: absolute;
+    width: 100%;
+    bottom: 8px;
+  }
+
+  .category {
+    display: none;
+  }
+}
+
+// list-type
+.product-list.list-type {
+  .item {
+    position: relative;
+  }
+
+  .item-img {
+    padding-top: 45%;
+    width: 45%;
+    margin-bottom: 0;
+  }
+
+  .item-info {
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 45%;
+    right: 0;
+    bottom: 0;
+    margin-left: -8px;
+    border-radius: 8px;
+
+    .price-bx {
+      position: absolute;
+      left: 16px;
+      bottom: 14px;
+    }
+  }
+}

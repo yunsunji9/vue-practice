@@ -1,0 +1,8 @@
+{
+  "config": {
+    "url": "https://tour-api.wonders.app"
+  },
+  "tourStory": {
+    "url": "https://tourstory-api.wonders.app"
+  }
+}
